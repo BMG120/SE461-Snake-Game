@@ -62,13 +62,44 @@ public class BoardPanel extends JPanel {
 	/**
 	 * The SnakeGame instance.
 	 */
-	private SnakeGame game;
+	public SnakeGame game;
 	
 	/**
 	 * The array of tiles that make up this board.
 	 */
-	private TileType[] tiles;
+	public TileType[] tiles;
+	
+	/**
+	 * Boolean measuring painting tile types.
+	 */
+	public boolean tileTypeDrawn = false;
+	
+	/**
+	 * Boolean measuring drawing grid.
+	 */
+	public boolean tileGridDrawn = false;
+	
+	/**
+	 * Array of 2 messages to be printed if game is new, paused, or over
+	 */
+	public String[] messages = {"largeMessage", "smallMessage"};
+	
+	/**
+	 * Boolean measuring drawing fruit.
+	 */
+	public boolean drawnFruit = false;
+	
+	/**
+	 * Boolean measuring drawing snake body.
+	 */
+	public boolean drawnBody = false;
 		
+	/**
+	 * Boolean array measuring drawing snake head. Index 0 = north, 1 = south,
+	 * 2 = west, 3 = east.
+	 */
+	public boolean[] drawnHead = {false, false, false, false};
+	
 	/**
 	 * Creates a new BoardPanel instance.
 	 * @param game The SnakeGame instance.
@@ -132,9 +163,11 @@ public class BoardPanel extends JPanel {
 				TileType type = getTile(x, y);
 				if(type != null) {
 					drawTile(x * TILE_SIZE, y * TILE_SIZE, type, g);
+					tileTypeDrawn = true;
 				}
 			}
 		}
+
 		
 		/*
 		 * Draw the grid on the board. This makes it easier to see exactly
@@ -149,9 +182,9 @@ public class BoardPanel extends JPanel {
 			for(int y = 0; y < ROW_COUNT; y++) {
 				g.drawLine(x * TILE_SIZE, 0, x * TILE_SIZE, getHeight());
 				g.drawLine(0, y * TILE_SIZE, getWidth(), y * TILE_SIZE);
+				tileGridDrawn = true;
 			}
 		}		
-		
 		/*
 		 * Show a message on the screen based on the current game state.
 		 */
@@ -172,13 +205,19 @@ public class BoardPanel extends JPanel {
 			String smallMessage = null;
 			if(game.isNewGame()) {
 				largeMessage = "Snake Game!";
+				messages[0] = largeMessage;
 				smallMessage = "Press Enter to Start";
+				messages[1] = smallMessage;
 			} else if(game.isGameOver()) {
 				largeMessage = "Game Over!";
+				messages[0] = largeMessage;
 				smallMessage = "Press Enter to Restart";
+				messages[1] = smallMessage;
 			} else if(game.isPaused()) {
 				largeMessage = "Paused";
+				messages[0] = largeMessage;
 				smallMessage = "Press P to Resume";
+				messages[1] = smallMessage;
 			}
 			
 			/*
@@ -197,7 +236,7 @@ public class BoardPanel extends JPanel {
 	 * @param type The type of tile to draw.
 	 * @param g The graphics object to draw to.
 	 */
-	private void drawTile(int x, int y, TileType type, Graphics g) {
+	public void drawTile(int x, int y, TileType type, Graphics g) {
 		/*
 		 * Because each type of tile is drawn differently, it's easiest
 		 * to just run through a switch statement rather than come up with some
@@ -212,6 +251,7 @@ public class BoardPanel extends JPanel {
 		case Fruit:
 			g.setColor(Color.RED);
 			g.fillOval(x + 2, y + 2, TILE_SIZE - 4, TILE_SIZE - 4);
+			drawnFruit = true;
 			break;
 			
 		/*
@@ -221,6 +261,7 @@ public class BoardPanel extends JPanel {
 		case SnakeBody:
 			g.setColor(Color.GREEN);
 			g.fillRect(x, y, TILE_SIZE, TILE_SIZE);
+			drawnBody = true;
 			break;
 			
 		/*
@@ -267,6 +308,7 @@ public class BoardPanel extends JPanel {
 				int baseY = y + EYE_SMALL_INSET;
 				g.drawLine(x + EYE_LARGE_INSET, baseY, x + EYE_LARGE_INSET, baseY + EYE_LENGTH);
 				g.drawLine(x + TILE_SIZE - EYE_LARGE_INSET, baseY, x + TILE_SIZE - EYE_LARGE_INSET, baseY + EYE_LENGTH);
+				drawnHead[0] = true;
 				break;
 			}
 				
@@ -274,6 +316,7 @@ public class BoardPanel extends JPanel {
 				int baseY = y + TILE_SIZE - EYE_SMALL_INSET;
 				g.drawLine(x + EYE_LARGE_INSET, baseY, x + EYE_LARGE_INSET, baseY - EYE_LENGTH);
 				g.drawLine(x + TILE_SIZE - EYE_LARGE_INSET, baseY, x + TILE_SIZE - EYE_LARGE_INSET, baseY - EYE_LENGTH);
+				drawnHead[1] = true;
 				break;
 			}
 			
@@ -281,6 +324,7 @@ public class BoardPanel extends JPanel {
 				int baseX = x + EYE_SMALL_INSET;
 				g.drawLine(baseX, y + EYE_LARGE_INSET, baseX + EYE_LENGTH, y + EYE_LARGE_INSET);
 				g.drawLine(baseX, y + TILE_SIZE - EYE_LARGE_INSET, baseX + EYE_LENGTH, y + TILE_SIZE - EYE_LARGE_INSET);
+				drawnHead[2] = true;
 				break;
 			}
 				
@@ -288,12 +332,13 @@ public class BoardPanel extends JPanel {
 				int baseX = x + TILE_SIZE - EYE_SMALL_INSET;
 				g.drawLine(baseX, y + EYE_LARGE_INSET, baseX - EYE_LENGTH, y + EYE_LARGE_INSET);
 				g.drawLine(baseX, y + TILE_SIZE - EYE_LARGE_INSET, baseX - EYE_LENGTH, y + TILE_SIZE - EYE_LARGE_INSET);
+				drawnHead[3] = true;
 				break;
 			}
-			
 			}
 			break;
 		}
+		
 	}
 
 }

@@ -42,6 +42,11 @@ public class SidePanel extends JPanel {
 	private SnakeGame game;
 	
 	/**
+	 * Boolean measuring coverage for paintComponent.
+	 */
+	public boolean painted = false;
+	
+	/**
 	 * Creates a new SidePanel instance.
 	 * @param game The SnakeGame instance.
 	 */
@@ -101,6 +106,7 @@ public class SidePanel extends JPanel {
 		g.drawString("Move Left: A / Left Arrowkey", LARGE_OFFSET, drawY += MESSAGE_STRIDE);
 		g.drawString("Move Right: D / Right Arrowkey", LARGE_OFFSET, drawY += MESSAGE_STRIDE);
 		g.drawString("Pause Game: P", LARGE_OFFSET, drawY += MESSAGE_STRIDE);
+		painted = true;
 	}
 
 }

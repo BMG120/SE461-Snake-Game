@@ -43,12 +43,12 @@ public class SnakeGame extends JFrame {
 	/**
 	 * The BoardPanel instance.
 	 */
-	private BoardPanel board;
+	public BoardPanel board;
 	
 	/**
 	 * The SidePanel instance.
 	 */
-	private SidePanel side;
+	public SidePanel side;
 	
 	/**
 	 * The random number generator (used for spawning fruits).
@@ -64,16 +64,37 @@ public class SnakeGame extends JFrame {
 	 * Whether or not we're running a new game.
 	 */
 	private boolean isNewGame;
+	
+	/**
+	 * Sets isNewGame for testing
+	 */
+	public void setNewGame(boolean b) {
+		this.isNewGame = b;
+	}
 		
 	/**
 	 * Whether or not the game is over.
 	 */
 	private boolean isGameOver;
 	
+	/**
+	 * Sets isGameOver for testing
+	 */
+	public void setGameOver(boolean b) {
+		this.isGameOver = b;
+	}
+	
 	/**	
 	 * Whether or not the game is paused.
 	 */
 	private boolean isPaused;
+	
+	/**
+	 * Sets isPaused for testing
+	 */
+	public void setPaused(boolean b) {
+		this.isPaused = b;
+	}
 	
 	/**
 	 * The list that contains the points for the snake.
@@ -83,7 +104,7 @@ public class SnakeGame extends JFrame {
 	/**
 	 * The list that contains the queued directions.
 	 */
-	private LinkedList<Direction> directions;
+	public LinkedList<Direction> directions;
 	
 	/**
 	 * The current score.
@@ -104,7 +125,7 @@ public class SnakeGame extends JFrame {
 	 * Creates a new SnakeGame instance. Creates a new window,
 	 * and sets up the controller input.
 	 */
-	private SnakeGame() {
+	public SnakeGame() {
 		super("Snake Remake");
 		setLayout(new BorderLayout());
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -240,7 +261,7 @@ public class SnakeGame extends JFrame {
 	/**
 	 * Starts the game running.
 	 */
-	private void startGame() {
+	public void startGame() {
 		/*
 		 * Initialize everything we're going to be using.
 		 */

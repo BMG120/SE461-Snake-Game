@@ -67,7 +67,9 @@ public class SnakeGameTest {
 		robot.keyPress(KeyEvent.VK_ENTER);
 		System.out.println("Enter pressed");
 		
-		robot.delay(5000);
+		robot.delay(1000);
+		assertTrue(snakegame.getNextFruitScore() < 100);
+		robot.delay(3000);
 		
 		assertTrue(snakegame.isGameOver());
 		System.out.println("Assertion for Game Over resolved");
@@ -484,7 +486,7 @@ public class SnakeGameTest {
 		
 		// Fulfills the following Test Sets:
 		
-		// TupdateGame {[1,2,7!]}
+		// TupdateGame {[1,2,7!], [1,3,5,7!]}
 		
 		// updateGame Logical Coverage
 		// P1 = if(collision == TileType.Fruit)
@@ -550,7 +552,7 @@ public class SnakeGameTest {
 	public void testDirectionsOverload() {
 		// tests overloading directions to go larger or equal to MAX_DIRECTIONS
 		
-		////TsnakeGame {[1,2,3,6,28!], [1,7,8,11,28!], [1,12,13,16,28!], [1,17,18,21,28!]
+		////TsnakeGame {[1,2,3,6,28!], [1,7,8,11,28!], [1,12,13,16,28!], [1,17,18,21,28!]}
 		
 		// P3 = if(directions.size() < getMaxDirections())
 		// T3 = {[True], [False]}
